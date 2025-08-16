@@ -21,4 +21,8 @@ export class UploadDownloadPage {
     console.log(fileName);
     await expect(uploadedFile).toContain(fileName);
   }
+
+  async downloadFile() {
+    this.page.click("#downloadButton");
+  }
 }
