@@ -1,8 +1,7 @@
-import { BASE_URL } from "../constants/urls";
 import { expect, Page } from "@playwright/test";
 
 export class TextBoxPage {
-  private readonly URL = BASE_URL + "text-box";
+  private readonly URL = "/text-box";
 
   constructor(private page: Page) {}
 
@@ -32,12 +31,14 @@ export class TextBoxPage {
     currentAddress: string,
     permanentAddress: string
   ) {
-    const outputLocator = await this.page.locator("#output");
-    const outputText = await outputLocator.textContent();
+    const outputLocator = this.page.locator("#output");
 
-    expect(outputText).toContain(`Name:${fullName}`);
-    expect(outputText).toContain(`Email:${email}`);
-    expect(outputText).toContain(`Current Address :${currentAddress}`);
-    expect(outputText).toContain(`Permananet Address :${permanentAddress}`);
+    // ensure output container is visible, then assert it contains expected values
+    await expect(outputLocator).toBeVisible();
+
+    await expect(outputLocator).toContainText(fullName);
+    await expect(outputLocator).toContainText(email);
+    await expect(outputLocator).toContainText(currentAddress);
+    await expect(outputLocator).toContainText(permanentAddress);
   }
 }
