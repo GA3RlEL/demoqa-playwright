@@ -14,12 +14,8 @@ export class UploadDownloadPage {
   }
 
   async verifyUploadedFile(fileName: string) {
-    const uploadedFile = await this.page
-      .locator("#uploadedFilePath")
-      .textContent();
-    console.log(uploadedFile);
-    console.log(fileName);
-    await expect(uploadedFile).toContain(fileName);
+    const uploadedFile = await this.page.locator("#uploadedFilePath");
+    await expect(uploadedFile).toContainText(fileName);
   }
 
   async downloadFile() {
