@@ -1,4 +1,4 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig } from "@playwright/test";
 import { BASE_URL } from "./constants/urls";
 
 export default defineConfig({

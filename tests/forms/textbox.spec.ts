@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import { faker } from "@faker-js/faker";
-import { TextBoxPage } from "../../page_objects/TextBoxPage";
+import { TextBoxPage } from "../../page_objects/forms/TextBoxPage";
 
 test("Fill and submit the text box form", async ({ page }) => {
   const textBoxPage = new TextBoxPage(page);
