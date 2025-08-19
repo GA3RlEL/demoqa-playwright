@@ -3,6 +3,15 @@ import { expect, Page } from "@playwright/test";
 export class TextBoxPage {
   private readonly URL = "/text-box";
 
+  locators = {
+    userName: "#userName",
+    userEmail: "#userEmail",
+    currentAddress: "#currentAddress",
+    permanentAddress: "#permanentAddress",
+    submitButton: "#submit",
+    output: "#output",
+  };
+
   constructor(private page: Page) {}
 
   async open() {
@@ -15,14 +24,14 @@ export class TextBoxPage {
     currentAddress: string,
     permanentAddress: string
   ) {
-    await this.page.fill("#userName", fullName);
-    await this.page.fill("#userEmail", email);
-    await this.page.fill("#currentAddress", currentAddress);
-    await this.page.fill("#permanentAddress", permanentAddress);
+    await this.page.fill(this.locators.userName, fullName);
+    await this.page.fill(this.locators.userEmail, email);
+    await this.page.fill(this.locators.currentAddress, currentAddress);
+    await this.page.fill(this.locators.permanentAddress, permanentAddress);
   }
 
   async submitForm() {
-    await this.page.click("#submit");
+    await this.page.click(this.locators.submitButton);
   }
 
   async validateForm(
@@ -31,7 +40,7 @@ export class TextBoxPage {
     currentAddress: string,
     permanentAddress: string
   ) {
-    const outputLocator = this.page.locator("#output");
+    const outputLocator = this.page.locator(this.locators.output);
 
     // ensure output container is visible, then assert it contains expected values
     await expect(outputLocator).toBeVisible();

@@ -1,6 +1,12 @@
 import { Page } from "@playwright/test";
 
 export class AlertsPage {
+  locators = {
+    alertButton: "#alertButton",
+    confirmButton: "#confirmButton",
+    promptButton: "#promtButton",
+  };
+
   constructor(private page: Page) {}
 
   async open() {
@@ -8,14 +14,14 @@ export class AlertsPage {
   }
 
   async showAlert() {
-    await this.page.click("#alertButton");
+    await this.page.click(this.locators.alertButton);
   }
 
   async showConfirmDialog() {
-    await this.page.click("#confirmButton");
+    await this.page.click(this.locators.confirmButton);
   }
 
   async showPromptDialog() {
-    await this.page.click("#promtButton");
+    await this.page.click(this.locators.promptButton);
   }
 }
