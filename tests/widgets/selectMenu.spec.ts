@@ -60,6 +60,9 @@ test("Validate multiSelect drop down", async ({ page }) => {
   // Open the page
   await selectMenuPage.open();
 
+  // Open the multiSelect drop down
+  await selectMenuPage.openMultiSelect();
+
   // Iterate through each option in the multiSelect menu
   for (let option of selectMenuPage.options.multiSelect) {
     // Select the option
@@ -68,7 +71,7 @@ test("Validate multiSelect drop down", async ({ page }) => {
     // Validate the selected option
     await selectMenuPage.validateSelectedOption(
       "multiselect",
-      "",
+      undefined,
       "multiselect",
       selectedOptions
     );

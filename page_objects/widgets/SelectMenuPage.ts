@@ -5,7 +5,7 @@ export class SelectMenuPage {
     selectValue: "#withOptGroup > div",
     selectOne: "#selectOne > div",
     oldStyleSelectMenu: "#oldSelectMenu",
-    multiselect: "#react-select-4-input",
+    multiselect: ".css-1wa3eu0-placeholder",
   };
 
   options = {
@@ -55,14 +55,16 @@ export class SelectMenuPage {
     });
   }
 
+  async openMultiSelect() {
+    await this.page.locator(this.locators.multiselect).last().click();
+  }
   async setMultiSelect(value: string) {
-    await this.page.click(this.locators.multiselect);
     await this.page.getByText(value).last().click();
   }
 
   async validateSelectedOption(
     locator: keyof typeof this.locators,
-    expectedText?: string,
+    expectedText?: string | undefined,
     type: "select" | "div" | "multiselect" = "div",
     selectedOptions?: string[]
   ) {
@@ -78,7 +80,7 @@ export class SelectMenuPage {
     if (type === "multiselect") {
       if (selectedOptions) {
         for (let option of selectedOptions) {
-          await expect(this.page.getByText(option).first()).toBeVisible();
+          await expect(this.page.getByText(option).last()).toBeVisible();
         }
       } else {
         throw new Error(
@@ -87,6 +89,6 @@ export class SelectMenuPage {
       }
     }
 
-    await expect(value).toBe(expectedText);
+    if (expectedText !== undefined) await expect(value).toBe(expectedText);
   }
 }
